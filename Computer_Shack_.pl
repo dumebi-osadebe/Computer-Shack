@@ -42,3 +42,9 @@ inStock(two_ft_hdmi_cable, centre_de_eaton_computer_stack, 12).
 
 inStock(one_ft_hdmi_cable, eaton_centre_computer_stack,, 10).
 inStock(one_ft_hdmi_cable, centre_de_eaton_computer_stack,, 10).
+
+%%%%% Atomic propositions for location of stores
+location(eaton_centre_computer_stack, toronto).
+location(square_one_computer_stack, mississuaga).
+location(centre_de_eaton_computer_stack, montreal).
+
