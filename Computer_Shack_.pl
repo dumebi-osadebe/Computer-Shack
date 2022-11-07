@@ -23,7 +23,7 @@ inStock(microsoft_surface_go, dufferin_mall_computer_stack, 30).
 inStock(microsoft_surface_go, centre_de_eaton_computer_stack, 35).
 
 inStock(lenovo_thinkpad, dufferin_computer_stack, 15).
-inStock(lenovo_thinkpad, _computer_stack, 15).
+inStock(lenovo_thinkpad, centre_de_eaton_computer_stack, 15).
 
 inStock(tech_tablet, square_one_computer_stack, 5).
 
@@ -40,11 +40,29 @@ inStock(three_ft_hdmi_cable, centre_de_eaton_computer_stack, 12).
 inStock(two_ft_hdmi_cable, eaton_centre_computer_stack, 12).
 inStock(two_ft_hdmi_cable, centre_de_eaton_computer_stack, 12).
 
-inStock(one_ft_hdmi_cable, eaton_centre_computer_stack,, 10).
-inStock(one_ft_hdmi_cable, centre_de_eaton_computer_stack,, 10).
+inStock(one_ft_hdmi_cable, eaton_centre_computer_stack, 10).
+inStock(one_ft_hdmi_cable, centre_de_eaton_computer_stack, 10).
 
 %%%%% Atomic propositions for location of stores
 location(eaton_centre_computer_stack, toronto).
 location(square_one_computer_stack, mississuaga).
 location(centre_de_eaton_computer_stack, montreal).
 
+%%%%% Atomic propositions for shipping locations
+canShip(macbook_pro, toronto).
+canShip(macbook_pro, mississuaga).
+canShip(macbook_air, toronto).
+canShip(macbook_air, mississuaga).
+canShip(microsoft_surface_go, toronto).
+canShip(microsoft_surface_go, montreal).
+canShip(lenovo_thinkpad, toronto).
+canShip(lenovo_thinkpad, montreal).
+canShip(galaxy_tab_10, toronto).
+canShip(galaxy_tab_10, montreal).
+canShip(ipad_air, toronto).
+canShip(ipad_mini, toronto).
+canShip(three_ft_hdmi_cable, montreal).
+canShip(two_ft_hdmi_cable, toronto).
+canShip(two_ft_hdmi_cable, montreal).
+canShip(one_ft_hdmi_cable, toronto).
+canShip(one_ft_hdmi_cable, montreal).
