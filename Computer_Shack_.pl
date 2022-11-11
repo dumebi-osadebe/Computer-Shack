@@ -57,3 +57,28 @@ canShip(two_ft_hdmi_cord, toronto).
 canShip(two_ft_hdmi_cord, montreal).
 canShip(one_ft_hdmi_cord, toronto).
 canShip(one_ft_hdmi_cord, montreal).
+
+%%%%% LEXICON
+article(a).
+article(an).
+article(any).
+article(the).
+
+% Product
+proper_noun(X) :- product(X, Manufacturer, Type, Price, Rating).
+
+% Manufacturer
+proper_noun(X) :- product(ProductName, X, Type, Price, Rating).
+
+% Product type
+proper_noun(X) :- product(ProductName, Manufacturer, X, Price, Rating).
+
+% Price
+proper_noun(X) :- product(ProductName, Manufacturer, Type, X, Rating).
+
+% Rating
+proper_noun(X) :- product(ProductName, Manufacturer, Type, Price, X).
+
+% location
+proper_noun(X) :- location(X, _).
+proper_noun(X) :- location(_, X).
