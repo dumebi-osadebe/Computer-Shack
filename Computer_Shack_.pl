@@ -82,3 +82,22 @@ proper_noun(X) :- product(ProductName, Manufacturer, Type, Price, X).
 % location
 proper_noun(X) :- location(X, _).
 proper_noun(X) :- location(_, X).
+
+% common nouns found in the database
+common_noun(laptop, X) :- product(X, _, laptop, _, _).
+common_noun(tablet, X) :- product(X, _, tablet, _, _).
+common_noun(hdmi_cable, X) :- product(X, _, hdmi_cable, _, _).
+common_noun(hdmi_cord, X) :- product(X, _, hdmi_cord, _, _).
+common_noun(monitor, X) :- product(X, _, monitor, _, _).
+
+common_noun(stock, X) :- inStock(_, _, X).
+common_noun(rating, X) :- product(_, _, _, _, X).
+common_noun(price, X) :- product(_, _, _, X, _).
+
+% a store can be at a location or have a stock of a product
+common_noun(store, X) :- location(X, _).
+common_noun(store, X) :- inStock(_, X, _).
+
+% a city can be shipped to or be the location of a store
+common_noun(city, X) :- canShip(_, X).
+common_noun(city, X) :- location(_, X).
