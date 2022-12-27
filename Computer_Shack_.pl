@@ -101,3 +101,57 @@ common_noun(store, X) :- inStock(_, X, _).
 % a city can be shipped to or be the location of a store
 common_noun(city, X) :- canShip(_, X).
 common_noun(city, X) :- location(_, X).
+
+
+% 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+
+% store in city
+preposition(in, X, Y) :- location(X, Y).
+% product in city
+preposition(in, X, Y) :- inStock(X, StoreName, _), location(StoreName, Y).
+% product in store
+preposition(in, X, Y) :- inStock(X, Y, _).
+
+% count of product at store
+preposition(at, X, Y) :- inStock(_, Y, X).
+% product at store location
+preposition(at, X, Y) :- inStock(X, Y, _).
+
+% store with product X store Y product
+preposition(with, X, Y) :- inStock(Y, X, _).
+
+% product X can ship to city location Y
+preposition(that_can_ship_to, X, Y) :- canShip(X, Y).
+% product type X can ship to city location Y
+preposition(that_can_ship_to, X, Y) :- product(ProductName, dell, X, _, _),  canShip(ProductName, Y).
+
+% rating of
+preposition(of, X, Y) :- product(Y, _, _, _, X).
+% price of
+preposition(of, X, Y) :- product(Y, _, _, X, _).
+% stock of
+preposition(of, X, Y) :- inStock(Y, _, X).
+
+% 0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+% adjectives of brands
+adjective(dell, X) :- product(X, dell, _, _, _).
+adjective(apple, X) :- product(X, apple, _, _, _).
+adjective(rocketfish, X) :- product(X, rocketfish, _, _, _).
+adjective(samsung, X) :- product(X, samsung, _, _, _).
+adjective(sony, X) :- product(X, sony, _, _, _).
+adjective(tech_net, X) :- product(X, tech_net, _, _, _).
+adjective(microsoft, X) :- product(X, microsoft, _, _, _).
+adjective(lenovo, X) :- product(X, lenovo, _, _, _).
+
+adjective(highly_rated, X) :- product(X, _, _, _, Rating), Rating >= 4.0.
+adjective(medium_rated, X) :- product(X, _, _, _, Rating), Rating >= 2.5, Rating < 4.0.
+adjective(lowly_rated, X) :- product(X, _, _, _, Rating), Rating < 2.5.
+
+% cheapest product of the same brand
+adjective(cheapest, X) :- product(X, Manufacturer, Type, Price, _), not (product(ProductName, Manufacturer, Type, Price2, _), not ProductName = X, Price >= Price2).
+% cheapest product of the same type
+adjective(cheapest, X) :- product(X, Manufacturer, Type, Price, _), not (product(ProductName, Manufacturer2, Type, Price2, _), not ProductName = X, Price >= Price2).
+
+adjective(expensive, X) :- product(ProductName, Manufacturer, Type, Price, _),  adjective(cheapest, ProductName), product(X, Manufacturer2, Type, Price2, _), Price2 >= 2 * Price.
