@@ -155,3 +155,41 @@ adjective(cheapest, X) :- product(X, Manufacturer, Type, Price, _), not (product
 adjective(cheapest, X) :- product(X, Manufacturer, Type, Price, _), not (product(ProductName, Manufacturer2, Type, Price2, _), not ProductName = X, Price >= Price2).
 
 adjective(expensive, X) :- product(ProductName, Manufacturer, Type, Price, _),  adjective(cheapest, ProductName), product(X, Manufacturer2, Type, Price2, _), Price2 >= 2 * Price.
+
+%%%%% PARSER
+what(Words, Ref) :- np(Words, Ref).
+
+/* Noun phrase can be a proper name or can start with an article */
+
+np([Name],Name) :- proper_noun(Name).
+np([Art|Rest], What) :- article(Art), np2(Rest, What).
+
+
+/* If a noun phrase starts with an article, then it must be followed
+   by another noun phrase that starts either with an adjective
+   or with a common noun. */
+
+np2([Adj|Rest],What) :- adjective(Adj,What), np2(Rest, What).
+np2([Noun|Rest], What) :- common_noun(Noun, What), mods(Rest,What).
+
+
+/* Modifier(s) provide an additional specific info about nouns.
+   Modifier can be a prepositional phrase followed by none, one or more
+   additional modifiers.  */
+
+mods([], _).
+
+mods([in, the, stock | Rest], What) :- mods(Rest, What).
+
+mods([in, stock | Rest], What) :- mods(Rest, What).
+
+mods(Words, What) :-
+    not Words = [in, the, stock | _], not Words = [in, stock | _],
+    appendLists(Start, End, Words),
+    prepPhrase(Start, What),    mods(End, What).
+
+prepPhrase([Prep|Rest], What) :-
+	preposition(Prep, What, Ref), np(Rest, Ref).
+
+appendLists([], L, L).
+appendLists([H|L1], L2, [H|L3]) :-  appendLists(L1, L2, L3).
